@@ -12,27 +12,32 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Login'),
-            const TextField(
-              decoration: InputDecoration(
-                hintText: 'Email',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Login'),
+              const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Login',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const TextField(
-              decoration: InputDecoration(
-                hintText: 'Password',
+              const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/todo-list');
-              },
-              child: const Text('Login'),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: () {
+
+                },
+                child: const Text('Login'),
+              ),
+            ],
+          ),
         ),
       ),
     );
