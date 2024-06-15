@@ -12,6 +12,15 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.chevron_left),
+        ),
+      ),
       body: Stack(
         children: [
           const Positioned(
@@ -41,7 +50,6 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   const SizedBox(height: 32),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Expanded(
                         child: ElevatedButton(
