@@ -16,7 +16,7 @@ class _RegisterViewState extends State<RegisterView> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/home_view');
           },
           icon: const Icon(Icons.chevron_left),
         ),
