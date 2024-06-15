@@ -43,8 +43,21 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const TextField(
+                  // insert eye icon at the end of the field
+                  TextField(
+                    obscureText: true,
+                    // insert eye icon at the end of the field
                     decoration: InputDecoration(
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.remove_red_eye),
+                          onPressed: () {
+                            print('toggle password visibility');
+                            // toggle password visibility
+                          },
+                        ),
+                      ),
                       hintText: 'Password',
                     ),
                   ),

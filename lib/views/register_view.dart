@@ -1,14 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import '../stores/register_store.dart';
 
-class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+class RegisterView extends StatelessWidget {
+  final RegisterStore _registerStore = RegisterStore();
 
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
+  RegisterView({super.key});
 
-class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,39 +33,49 @@ class _RegisterViewState extends State<RegisterView> {
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Login',
+              child: Observer(builder: (context) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextField(
+                      onChanged: (value) => _registerStore.login = value,
+                      decoration: InputDecoration(
+                          hintText: 'Login',
+                          errorText: _registerStore.loginError),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Password Confirmation',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: const Text('Sign Up'),
-                        ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      onChanged: (value) => _registerStore.password = value,
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        errorText: _registerStore.passwordError,
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      onChanged: (value) =>
+                          _registerStore.passwordConfirmation = value,
+                      decoration: InputDecoration(
+                        hintText: 'Password Confirmation',
+                        errorText: _registerStore.passwordConfirmationError,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: _registerStore.isFormValid
+                                ? _registerStore.register
+                                : null,
+                            child: const Text('Sign Up'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              }),
             ),
           ),
           Positioned(

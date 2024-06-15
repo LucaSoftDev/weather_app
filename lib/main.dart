@@ -11,7 +11,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,11 +28,11 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           inputDecorationTheme: InputDecorationTheme(
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.purple[200]!, width: 2.0),
+              borderSide: const BorderSide(color: Colors.blue, width: 2.0),
               borderRadius: BorderRadius.circular(32.0),
             ),
           ),
@@ -43,7 +42,14 @@ class MyApp extends StatelessWidget {
                 const Size(double.infinity, 48.0),
               ),
               foregroundColor: MaterialStateProperty.all(Colors.white),
-              backgroundColor: MaterialStateProperty.all(Colors.blue[300]),
+              backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return Colors.grey[350]!;
+                  }
+                  return Colors.blue;
+                },
+              ),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32.0),
@@ -75,7 +81,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.dark,
         routes: {
           '/login_view': (context) => const LoginView(),
-          '/register_view': (context) => const RegisterView(),
+          '/register_view': (context) => RegisterView(),
           '/home_view': (context) => const HomeView(),
         },
       ),
