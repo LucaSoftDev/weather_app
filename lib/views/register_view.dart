@@ -1,14 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _LoginViewState extends State<LoginView> {
               right: 0,
               top: 32,
               child: Center(
-                  child: Text('Welcome Back',
+                  child: Text('Create an Account',
                       style: TextStyle(
                           fontSize: 24, fontWeight: FontWeight.bold)))),
           Center(
@@ -48,13 +48,19 @@ class _LoginViewState extends State<LoginView> {
                       hintText: 'Password',
                     ),
                   ),
+                  const SizedBox(height: 16),
+                  const TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Password Confirmation',
+                    ),
+                  ),
                   const SizedBox(height: 32),
                   Row(
                     children: [
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {},
-                          child: const Text('Login'),
+                          child: const Text('Sign Up'),
                         ),
                       ),
                     ],
@@ -70,16 +76,16 @@ class _LoginViewState extends State<LoginView> {
             child: Center(
               child: RichText(
                 text: TextSpan(
-                  text: 'Don\'t have an account? ',
+                  text: 'Already have an account? ',
                   // get style from theme
                   style: Theme.of(context).textTheme.bodyMedium,
                   children: [
                     TextSpan(
-                      text: 'Sign up now',
+                      text: 'Sign in Now',
                       style: TextStyle(color: Colors.blue),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushNamed(context, '/register_view');
+                          Navigator.pushNamed(context, '/login_view');
                         },
                     ),
                   ],

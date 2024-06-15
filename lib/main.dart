@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/views/login_view.dart';
+import 'package:weather_app/views/register_view.dart';
 
 import 'views/home_view.dart';
 
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.dark,
         routes: {
           '/login_view': (context) => const LoginView(),
-          '/register_view': (context) => const LoginView(),
+          '/register_view': (context) => const RegisterView(),
         },
       ),
     );

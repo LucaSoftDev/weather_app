@@ -46,15 +46,15 @@ class _HomeViewState extends State<HomeView> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/todo');
+                        Navigator.pushNamed(context, '/register_view');
                       },
-                      child: const Text('Sign Up'),
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white),
                         foregroundColor:
                             MaterialStateProperty.all(Colors.blue[300]),
                       ),
+                      child: const Text('Sign Up'),
                     ),
                   ),
                 ],
