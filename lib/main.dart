@@ -11,23 +11,65 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        inputDecorationTheme: InputDecorationTheme(
-          contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.deepPurple, width: 2.0),
-            borderRadius: BorderRadius.circular(32.0),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          center: Alignment.topLeft,
+          radius: 2,
+          colors: [Colors.purple[50]!, Colors.blue[50]!, Colors.blue[100]!],
         ),
       ),
-      home: const LoginView(),
-      debugShowCheckedModeBanner: false,
-
+      child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+            useMaterial3: true,
+            inputDecorationTheme: InputDecorationTheme(
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.purple[200]!, width: 2.0),
+                borderRadius: BorderRadius.circular(32.0),
+              ),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(
+                  const Size(double.infinity, 48.0),
+                ),
+                foregroundColor: MaterialStateProperty.all(Colors.white),
+                backgroundColor: MaterialStateProperty.all(Colors.blue[300]),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                ),
+              ),
+            ),
+            scaffoldBackgroundColor: Colors.transparent,
+            textTheme: const TextTheme(
+              bodyLarge: TextStyle(color: Colors.black87),
+              bodyMedium: TextStyle(color: Colors.black87),
+              bodySmall: TextStyle(color: Colors.black87),
+              displayLarge: TextStyle(color: Colors.black87),
+              displayMedium: TextStyle(color: Colors.black87),
+              displaySmall: TextStyle(color: Colors.black87),
+              headlineLarge: TextStyle(color: Colors.black87),
+              headlineMedium: TextStyle(color: Colors.black87),
+              headlineSmall: TextStyle(color: Colors.black87),
+              titleLarge: TextStyle(color: Colors.black87),
+              titleMedium: TextStyle(color: Colors.black87),
+              titleSmall: TextStyle(color: Colors.black87),
+              labelLarge: TextStyle(color: Colors.black87),
+              labelMedium: TextStyle(color: Colors.black87),
+              labelSmall: TextStyle(color: Colors.black87),
+            ),
+          ),
+          home: const LoginView(),
+          debugShowCheckedModeBanner: false,
+          themeMode: ThemeMode.dark),
     );
   }
 }
