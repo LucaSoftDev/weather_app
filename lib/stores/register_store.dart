@@ -20,39 +20,82 @@ abstract class RegisterStoreBase with Store {
   @observable
   String? passwordConfirmation;
 
+  @observable
+  bool obscurePassword = true;
+
+  @observable
+  bool obscurePasswordConfirmation = true;
+
   @computed
   String? get loginError {
-    if (login != null && login!.isEmpty) {
+    if (login == null) {
+      return null;
+    }
+    if (login!.isEmpty) {
       return 'Login cannot be empty';
     }
+    if (login!.length < 3) {
+      return 'Login must be at least 3 characters long';
+    }
     return null;
+  }
+
+  @computed
+  bool get isLoginValid {
+    return login != null && loginError == null;
   }
 
   @computed
   String? get passwordError {
-    if (password != null && password!.isEmpty) {
+    if (password == null) {
+      return null;
+    }
+    if (password!.isEmpty) {
       return 'Password cannot be empty';
+    }
+    if (password!.length < 8) {
+      return 'Password must be at least 8 characters long';
     }
     return null;
   }
 
   @computed
+  bool get isPasswordValid {
+    return password != null && passwordError == null;
+  }
+
+  @computed
   String? get passwordConfirmationError {
-    if (passwordConfirmation != null && passwordConfirmation!.isEmpty) {
+    if (passwordConfirmation == null) {
+      return null;
+    }
+    if (passwordConfirmation!.isEmpty) {
       return 'Password confirmation cannot be empty';
     }
-    if (passwordConfirmation != null && password != passwordConfirmation) {
+    if (password != passwordConfirmation) {
       return 'Password and password confirmation must match';
     }
     return null;
   }
 
   @computed
+  bool get isPasswordConfirmationValid {
+    return passwordConfirmation != null && passwordConfirmationError == null;
+  }
+
+  @computed
   bool get isFormValid {
-    return (login?.isNotEmpty ?? false) &&
-        (password?.isNotEmpty ?? false) &&
-        (passwordConfirmation?.isNotEmpty ?? false) &&
-        password == passwordConfirmation;
+    return isLoginValid && isPasswordValid && isPasswordConfirmationValid;
+  }
+
+  @action
+  void toggleObscurePassword() {
+    obscurePassword = !obscurePassword;
+  }
+
+  @action
+  void toggleObscurePasswordConfirmation() {
+    obscurePasswordConfirmation = !obscurePasswordConfirmation;
   }
 
   @action

@@ -16,12 +16,26 @@ mixin _$RegisterStore on RegisterStoreBase, Store {
       (_$loginErrorComputed ??= Computed<String?>(() => super.loginError,
               name: 'RegisterStoreBase.loginError'))
           .value;
+  Computed<bool>? _$isLoginValidComputed;
+
+  @override
+  bool get isLoginValid =>
+      (_$isLoginValidComputed ??= Computed<bool>(() => super.isLoginValid,
+              name: 'RegisterStoreBase.isLoginValid'))
+          .value;
   Computed<String?>? _$passwordErrorComputed;
 
   @override
   String? get passwordError =>
       (_$passwordErrorComputed ??= Computed<String?>(() => super.passwordError,
               name: 'RegisterStoreBase.passwordError'))
+          .value;
+  Computed<bool>? _$isPasswordValidComputed;
+
+  @override
+  bool get isPasswordValid =>
+      (_$isPasswordValidComputed ??= Computed<bool>(() => super.isPasswordValid,
+              name: 'RegisterStoreBase.isPasswordValid'))
           .value;
   Computed<String?>? _$passwordConfirmationErrorComputed;
 
@@ -30,6 +44,14 @@ mixin _$RegisterStore on RegisterStoreBase, Store {
       (_$passwordConfirmationErrorComputed ??= Computed<String?>(
               () => super.passwordConfirmationError,
               name: 'RegisterStoreBase.passwordConfirmationError'))
+          .value;
+  Computed<bool>? _$isPasswordConfirmationValidComputed;
+
+  @override
+  bool get isPasswordConfirmationValid =>
+      (_$isPasswordConfirmationValidComputed ??= Computed<bool>(
+              () => super.isPasswordConfirmationValid,
+              name: 'RegisterStoreBase.isPasswordConfirmationValid'))
           .value;
   Computed<bool>? _$isFormValidComputed;
 
@@ -88,6 +110,39 @@ mixin _$RegisterStore on RegisterStoreBase, Store {
     });
   }
 
+  late final _$obscurePasswordAtom =
+      Atom(name: 'RegisterStoreBase.obscurePassword', context: context);
+
+  @override
+  bool get obscurePassword {
+    _$obscurePasswordAtom.reportRead();
+    return super.obscurePassword;
+  }
+
+  @override
+  set obscurePassword(bool value) {
+    _$obscurePasswordAtom.reportWrite(value, super.obscurePassword, () {
+      super.obscurePassword = value;
+    });
+  }
+
+  late final _$obscurePasswordConfirmationAtom = Atom(
+      name: 'RegisterStoreBase.obscurePasswordConfirmation', context: context);
+
+  @override
+  bool get obscurePasswordConfirmation {
+    _$obscurePasswordConfirmationAtom.reportRead();
+    return super.obscurePasswordConfirmation;
+  }
+
+  @override
+  set obscurePasswordConfirmation(bool value) {
+    _$obscurePasswordConfirmationAtom
+        .reportWrite(value, super.obscurePasswordConfirmation, () {
+      super.obscurePasswordConfirmation = value;
+    });
+  }
+
   late final _$registerAsyncAction =
       AsyncAction('RegisterStoreBase.register', context: context);
 
@@ -96,15 +151,45 @@ mixin _$RegisterStore on RegisterStoreBase, Store {
     return _$registerAsyncAction.run(() => super.register());
   }
 
+  late final _$RegisterStoreBaseActionController =
+      ActionController(name: 'RegisterStoreBase', context: context);
+
+  @override
+  void toggleObscurePassword() {
+    final _$actionInfo = _$RegisterStoreBaseActionController.startAction(
+        name: 'RegisterStoreBase.toggleObscurePassword');
+    try {
+      return super.toggleObscurePassword();
+    } finally {
+      _$RegisterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleObscurePasswordConfirmation() {
+    final _$actionInfo = _$RegisterStoreBaseActionController.startAction(
+        name: 'RegisterStoreBase.toggleObscurePasswordConfirmation');
+    try {
+      return super.toggleObscurePasswordConfirmation();
+    } finally {
+      _$RegisterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 login: ${login},
 password: ${password},
 passwordConfirmation: ${passwordConfirmation},
+obscurePassword: ${obscurePassword},
+obscurePasswordConfirmation: ${obscurePasswordConfirmation},
 loginError: ${loginError},
+isLoginValid: ${isLoginValid},
 passwordError: ${passwordError},
+isPasswordValid: ${isPasswordValid},
 passwordConfirmationError: ${passwordConfirmationError},
+isPasswordConfirmationValid: ${isPasswordConfirmationValid},
 isFormValid: ${isFormValid}
     ''';
   }

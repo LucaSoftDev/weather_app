@@ -45,31 +45,53 @@ class RegisterView extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     TextField(
+                      obscureText: _registerStore.obscurePassword,
                       onChanged: (value) => _registerStore.password = value,
                       decoration: InputDecoration(
-                        hintText: 'Password',
-                        errorText: _registerStore.passwordError,
-                      ),
+                          hintText: 'Password',
+                          errorText: _registerStore.passwordError,
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: IconButton(
+                                icon: Icon(_registerStore.obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed:
+                                    _registerStore.toggleObscurePassword),
+                          )),
                     ),
                     const SizedBox(height: 16),
                     TextField(
+                      obscureText: _registerStore.obscurePasswordConfirmation,
                       onChanged: (value) =>
                           _registerStore.passwordConfirmation = value,
                       decoration: InputDecoration(
                         hintText: 'Password Confirmation',
                         errorText: _registerStore.passwordConfirmationError,
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: IconButton(
+                              icon: Icon(
+                                  _registerStore.obscurePasswordConfirmation
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                              onPressed: _registerStore
+                                  .toggleObscurePasswordConfirmation),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 48),
                     Row(
                       children: [
                         Expanded(
-                          child: ElevatedButton(
-                            onPressed: _registerStore.isFormValid
-                                ? _registerStore.register
-                                : null,
-                            child: const Text('Sign Up'),
-                          ),
+                          child: Observer(builder: (context) {
+                            return ElevatedButton(
+                              onPressed: _registerStore.isFormValid
+                                  ? _registerStore.register
+                                  : null,
+                              child: const Text('Sign Up'),
+                            );
+                          }),
                         ),
                       ],
                     ),
