@@ -16,9 +16,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        inputDecorationTheme: InputDecorationTheme(
+          contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.deepPurple, width: 2.0),
+            borderRadius: BorderRadius.circular(32.0),
+          ),
+        ),
       ),
       home: const LoginView(),
       debugShowCheckedModeBanner: false,
+
     );
   }
 }

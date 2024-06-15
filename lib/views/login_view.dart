@@ -21,13 +21,12 @@ class _LoginViewState extends State<LoginView> {
               const TextField(
                 decoration: InputDecoration(
                   hintText: 'Login',
-                  border: OutlineInputBorder(),
                 ),
               ),
+
               const TextField(
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  border: OutlineInputBorder(),
                 ),
               ),
               ElevatedButton(
