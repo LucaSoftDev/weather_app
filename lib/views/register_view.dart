@@ -160,7 +160,7 @@ class _RegisterViewState extends State<RegisterView> {
                   children: [
                     TextSpan(
                       text: 'Sign in Now',
-                      style: TextStyle(color: Colors.blue),
+                      style: const TextStyle(color: Colors.blue),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           Navigator.pushNamed(context, '/login_view');

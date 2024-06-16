@@ -97,7 +97,7 @@ class _LoginViewState extends State<LoginView> {
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: IconButton(
-                            icon: Icon(Icons.remove_red_eye),
+                            icon: const Icon(Icons.remove_red_eye),
                             onPressed: () {
                               _loginStore.toggleObscurePassword();
                             },
@@ -142,7 +142,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     TextSpan(
                       text: 'Sign up now',
-                      style: TextStyle(color: Colors.blue),
+                      style: const TextStyle(color: Colors.blue),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           Navigator.pushNamed(context, '/register_view');

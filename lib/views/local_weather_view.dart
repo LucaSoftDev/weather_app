@@ -15,23 +15,53 @@ class _LocalWeatherViewState extends State<LocalWeatherView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    _localWeatherStore.fetchWeather();
+    _localWeatherStore.fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Center(
       child: Observer(builder: (context) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        return Stack(
           children: [
-            Text(_localWeatherStore.weather ?? 'No weather data'),
-            ElevatedButton(
-                onPressed: _localWeatherStore.fetchWeather,
-                child: Text('Get Weather'))
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(_localWeatherStore.formattedDate,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 32),
+                const Image(image: AssetImage('assets/images/cloud_sun.png')),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      _localWeatherStore.temperature,
+                      style: const TextStyle(fontSize: 96),
+                    ),
+                    Column(
+                      children: [
+                        Text(_localWeatherStore.weather ?? 'No weather data',
+                            style: const TextStyle(fontSize: 24)),
+                        Text(_localWeatherStore.weatherDescription ??
+                            'No weather description data')
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Positioned(
+              right: 0,
+              left: 0,
+              bottom: 16,
+              child: ElevatedButton(
+                  onPressed: _localWeatherStore.fetchData,
+                  child: const Text('Get Weather')),
+            )
           ],
         );
       }),
