@@ -1,12 +1,59 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import '../stores/register_store.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
+
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   final RegisterStore _registerStore = RegisterStore();
 
-  RegisterView({super.key});
+  late final ReactionDisposer _successReactionDisposer;
+  late final ReactionDisposer _errorReactionDisposer;
+
+  final greeting = Observable('Hello World');
+
+  @override
+  void initState() {
+    super.initState();
+    _successReactionDisposer = reaction(
+      (_) => _registerStore.success,
+      (success) {
+        if (success) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/home_view', (route) => false);
+        }
+      },
+    );
+
+    _errorReactionDisposer = reaction(
+      (_) => _registerStore.errorMessage,
+      (errorMessage) {
+        if (errorMessage?.isNotEmpty ?? false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage!),
+              backgroundColor: Colors.red,
+            ),
+          );
+          _registerStore.errorMessage = null;
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _successReactionDisposer();
+    _errorReactionDisposer();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

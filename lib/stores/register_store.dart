@@ -1,9 +1,6 @@
-import 'dart:math';
-
-import 'package:flutter/material.dart';
-
 import 'package:crypto/crypto.dart';
-import 'dart:convert'; // for the utf8.encode method
+import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:mobx/mobx.dart';
@@ -29,6 +26,14 @@ abstract class RegisterStoreBase with Store {
 
   @observable
   bool obscurePasswordConfirmation = true;
+
+  @observable
+  String? errorMessage;
+
+  @observable
+  bool success = false;
+
+  //Observable<bool> success = Observable(false);
 
   @computed
   String? get loginError {
@@ -111,15 +116,21 @@ abstract class RegisterStoreBase with Store {
 
     try {
       await _saveCredentials(digest, salt);
+      success = true;
+      print('Registration successful');
     } catch (e) {
-      throw Exception('Registration failed');
+      errorMessage = e.toString();
     }
   }
 
   Future<void> _saveCredentials(Digest digest, String salt) async {
-    // Store the username and hashed password in local storage
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('username', login!);
-    await prefs.setString('password', digest.toString());
-    await prefs.setString('salt', salt);
+    if (prefs.containsKey('username_$login')) {
+      throw ErrorDescription('User already exists');
+    }
+
+    await prefs.setString('username_$login', login!);
+    await prefs.setString('password_$login', digest.toString());
+    await prefs.setString('salt_$login', salt);
   }
+}
