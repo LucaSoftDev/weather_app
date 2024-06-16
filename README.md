@@ -1,6 +1,6 @@
-# weather_app
+# untitled1
 
-A project for showing weather information based on users location.
+A new Flutter project.
 
 ## Getting Started
 

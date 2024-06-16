@@ -39,19 +39,19 @@ class MyApp extends StatelessWidget {
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-              fixedSize: MaterialStateProperty.all(
+              fixedSize: WidgetStateProperty.all(
                 const Size(double.infinity, 48.0),
               ),
-              foregroundColor: MaterialStateProperty.all(Colors.white),
-              backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.disabled)) {
+              foregroundColor: WidgetStateProperty.all(Colors.white),
+              backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
+                  if (states.contains(WidgetState.disabled)) {
                     return Colors.grey[350]!;
                   }
                   return Colors.blue;
                 },
               ),
-              shape: MaterialStateProperty.all(
+              shape: WidgetStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(32.0),
                 ),

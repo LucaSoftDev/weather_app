@@ -1,11 +1,11 @@
 {
-    "name": "weather_app",
-    "short_name": "weather_app",
+    "name": "untitled1",
+    "short_name": "untitled1",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A project for showing weather information based on users location.",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
