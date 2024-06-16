@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:weather_app/widgets/weather_image.dart';
 
 import '../stores/local_weather_store.dart';
 
@@ -37,11 +38,7 @@ class _LocalWeatherViewState extends State<LocalWeatherView> {
                         style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 32),
-                    const Image(
-                      image: AssetImage('assets/images/cloud_sun.png'),
-                      fit: BoxFit.cover,
-                      width: 250,
-                    ),
+                    WeatherImage(weatherCode: _localWeatherStore.weatherCode),
                     const SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

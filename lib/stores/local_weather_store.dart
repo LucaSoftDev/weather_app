@@ -16,7 +16,7 @@ abstract class LocalWeatherStoreBase with Store {
   double? longitude;
 
   @observable
-  DateTime? dateTime;
+  DateTime? _dateTime;
 
   @observable
   String? _city;
@@ -33,12 +33,15 @@ abstract class LocalWeatherStoreBase with Store {
   @observable
   String? errorMessage;
 
+  @observable
+  String? weatherCode;
+
   @computed
   String get formattedDate {
-    if (dateTime == null) {
+    if (_dateTime == null) {
       return '';
     }
-    return DateFormat('EEEE dd MMMM yyyy').format(dateTime!);
+    return DateFormat('EEEE dd MMMM yyyy').format(_dateTime!);
   }
 
   @computed
@@ -83,7 +86,8 @@ abstract class LocalWeatherStoreBase with Store {
       _weatherDescription = response?.weather?.first.description;
       _city = response?.name;
       _temperature = response?.main?.temp;
-      dateTime = DateTime.now();
+      _dateTime = DateTime.now();
+      weatherCode = response?.weather?.first.icon;
     } catch (e) {
       errorMessage = 'Failed to fetch weather';
     }

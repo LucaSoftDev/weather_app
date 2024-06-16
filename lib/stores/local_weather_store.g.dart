@@ -63,19 +63,19 @@ mixin _$LocalWeatherStore on LocalWeatherStoreBase, Store {
     });
   }
 
-  late final _$dateTimeAtom =
-      Atom(name: 'LocalWeatherStoreBase.dateTime', context: context);
+  late final _$_dateTimeAtom =
+      Atom(name: 'LocalWeatherStoreBase._dateTime', context: context);
 
   @override
-  DateTime? get dateTime {
-    _$dateTimeAtom.reportRead();
-    return super.dateTime;
+  DateTime? get _dateTime {
+    _$_dateTimeAtom.reportRead();
+    return super._dateTime;
   }
 
   @override
-  set dateTime(DateTime? value) {
-    _$dateTimeAtom.reportWrite(value, super.dateTime, () {
-      super.dateTime = value;
+  set _dateTime(DateTime? value) {
+    _$_dateTimeAtom.reportWrite(value, super._dateTime, () {
+      super._dateTime = value;
     });
   }
 
@@ -159,6 +159,22 @@ mixin _$LocalWeatherStore on LocalWeatherStoreBase, Store {
     });
   }
 
+  late final _$weatherCodeAtom =
+      Atom(name: 'LocalWeatherStoreBase.weatherCode', context: context);
+
+  @override
+  String? get weatherCode {
+    _$weatherCodeAtom.reportRead();
+    return super.weatherCode;
+  }
+
+  @override
+  set weatherCode(String? value) {
+    _$weatherCodeAtom.reportWrite(value, super.weatherCode, () {
+      super.weatherCode = value;
+    });
+  }
+
   late final _$fetchDataAsyncAction =
       AsyncAction('LocalWeatherStoreBase.fetchData', context: context);
 
@@ -188,9 +204,9 @@ mixin _$LocalWeatherStore on LocalWeatherStoreBase, Store {
     return '''
 latitude: ${latitude},
 longitude: ${longitude},
-dateTime: ${dateTime},
 weather: ${weather},
 errorMessage: ${errorMessage},
+weatherCode: ${weatherCode},
 formattedDate: ${formattedDate},
 temperature: ${temperature},
 weatherDescription: ${weatherDescription}

@@ -19,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Image(
-                image: AssetImage('assets/images/cloud_sun.png'),
+                image: AssetImage('assets/images/cloud_sun2.png'),
                 fit: BoxFit.cover,
                 width: 200,
               ),
