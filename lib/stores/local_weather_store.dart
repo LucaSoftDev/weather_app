@@ -73,6 +73,11 @@ abstract class LocalWeatherStoreBase with Store {
   }
 
   @action
+  Future<void> updateWeather() async {
+    await _fetchWeather();
+  }
+
+  @action
   Future<void> _fetchLocation() async {
     isWaitingForLocation = true;
     try {

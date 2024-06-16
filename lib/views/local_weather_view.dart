@@ -77,7 +77,7 @@ class _LocalWeatherViewState extends State<LocalWeatherView> {
           left: 0,
           bottom: 16,
           child: ElevatedButton(
-              onPressed: _localWeatherStore.fetchData,
+              onPressed: _localWeatherStore.updateWeather,
               child: const Text('Update')),
         )
       ],
