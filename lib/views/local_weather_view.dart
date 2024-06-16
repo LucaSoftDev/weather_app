@@ -65,8 +65,7 @@ class _LocalWeatherViewState extends State<LocalWeatherView> {
                   children: [
                     Text(_localWeatherStore.weather ?? 'No weather data',
                         style: const TextStyle(fontSize: 24)),
-                    Text(_localWeatherStore.weatherDescription ??
-                        'No weather description data')
+                    Text(_localWeatherStore.weatherDescription)
                   ],
                 )
               ],

@@ -67,6 +67,5 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
-    return const Placeholder();
   }
 }
