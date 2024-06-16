@@ -85,10 +85,10 @@ class _RegisterViewState extends State<RegisterView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextField(
-                      onChanged: (value) => _registerStore.login = value,
+                      onChanged: (value) => _registerStore.username = value,
                       decoration: InputDecoration(
-                          hintText: 'Login',
-                          errorText: _registerStore.loginError),
+                          hintText: 'User Name',
+                          errorText: _registerStore.usernameError),
                     ),
                     const SizedBox(height: 16),
                     TextField(

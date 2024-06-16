@@ -9,19 +9,19 @@ part of 'register_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$RegisterStore on RegisterStoreBase, Store {
-  Computed<String?>? _$loginErrorComputed;
+  Computed<String?>? _$usernameErrorComputed;
 
   @override
-  String? get loginError =>
-      (_$loginErrorComputed ??= Computed<String?>(() => super.loginError,
-              name: 'RegisterStoreBase.loginError'))
+  String? get usernameError =>
+      (_$usernameErrorComputed ??= Computed<String?>(() => super.usernameError,
+              name: 'RegisterStoreBase.usernameError'))
           .value;
-  Computed<bool>? _$isLoginValidComputed;
+  Computed<bool>? _$isUsernameValidComputed;
 
   @override
-  bool get isLoginValid =>
-      (_$isLoginValidComputed ??= Computed<bool>(() => super.isLoginValid,
-              name: 'RegisterStoreBase.isLoginValid'))
+  bool get isUsernameValid =>
+      (_$isUsernameValidComputed ??= Computed<bool>(() => super.isUsernameValid,
+              name: 'RegisterStoreBase.isUsernameValid'))
           .value;
   Computed<String?>? _$passwordErrorComputed;
 
@@ -61,19 +61,19 @@ mixin _$RegisterStore on RegisterStoreBase, Store {
               name: 'RegisterStoreBase.isFormValid'))
           .value;
 
-  late final _$loginAtom =
-      Atom(name: 'RegisterStoreBase.login', context: context);
+  late final _$usernameAtom =
+      Atom(name: 'RegisterStoreBase.username', context: context);
 
   @override
-  String? get login {
-    _$loginAtom.reportRead();
-    return super.login;
+  String? get username {
+    _$usernameAtom.reportRead();
+    return super.username;
   }
 
   @override
-  set login(String? value) {
-    _$loginAtom.reportWrite(value, super.login, () {
-      super.login = value;
+  set username(String? value) {
+    _$usernameAtom.reportWrite(value, super.username, () {
+      super.username = value;
     });
   }
 
@@ -211,15 +211,15 @@ mixin _$RegisterStore on RegisterStoreBase, Store {
   @override
   String toString() {
     return '''
-login: ${login},
+username: ${username},
 password: ${password},
 passwordConfirmation: ${passwordConfirmation},
 obscurePassword: ${obscurePassword},
 obscurePasswordConfirmation: ${obscurePasswordConfirmation},
 errorMessage: ${errorMessage},
 success: ${success},
-loginError: ${loginError},
-isLoginValid: ${isLoginValid},
+usernameError: ${usernameError},
+isUsernameValid: ${isUsernameValid},
 passwordError: ${passwordError},
 isPasswordValid: ${isPasswordValid},
 passwordConfirmationError: ${passwordConfirmationError},

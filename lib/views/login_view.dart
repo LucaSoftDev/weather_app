@@ -1,5 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+import '../stores/login_store.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -9,6 +12,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final LoginStore _loginStore = LoginStore();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,46 +39,54 @@ class _LoginViewState extends State<LoginView> {
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Login',
+              child: Observer(builder: (context) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextField(
+                      onChanged: (value) => _loginStore.username = value,
+                      decoration: InputDecoration(
+                          hintText: 'Username',
+                          errorText: _loginStore.usernameError),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  // insert eye icon at the end of the field
-                  TextField(
-                    obscureText: true,
-                    // insert eye icon at the end of the field
-                    decoration: InputDecoration(
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: IconButton(
-                          icon: Icon(Icons.remove_red_eye),
-                          onPressed: () {
-                            print('toggle password visibility');
-                            // toggle password visibility
-                          },
+                    const SizedBox(height: 16),
+                    TextField(
+                      onChanged: (value) => _loginStore.password = value,
+                      obscureText: _loginStore.obscurePassword,
+                      decoration: InputDecoration(
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: IconButton(
+                            icon: Icon(Icons.remove_red_eye),
+                            onPressed: () {
+                              _loginStore.toggleObscurePassword();
+                            },
+                          ),
                         ),
+                        hintText: 'Password',
+                        errorText: _loginStore.passwordError,
                       ),
-                      hintText: 'Password',
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: const Text('Login'),
+                    const SizedBox(height: 48),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Observer(builder: (context) {
+                            return ElevatedButton(
+                              onPressed: _loginStore.isFormValid
+                                  ? () {
+                                      _loginStore.login();
+                                    }
+                                  : null,
+                              child: const Text('Login'),
+                            );
+                          }),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      ],
+                    ),
+                  ],
+                );
+              }),
             ),
           ),
           Positioned(

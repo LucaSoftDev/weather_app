@@ -13,7 +13,7 @@ class RegisterStore = RegisterStoreBase with _$RegisterStore;
 
 abstract class RegisterStoreBase with Store {
   @observable
-  String? login;
+  String? username;
 
   @observable
   String? password;
@@ -36,22 +36,22 @@ abstract class RegisterStoreBase with Store {
   //Observable<bool> success = Observable(false);
 
   @computed
-  String? get loginError {
-    if (login == null) {
+  String? get usernameError {
+    if (username == null) {
       return null;
     }
-    if (login!.isEmpty) {
-      return 'Login cannot be empty';
+    if (username!.isEmpty) {
+      return 'Username cannot be empty';
     }
-    if (login!.length < 3) {
-      return 'Login must be at least 3 characters long';
+    if (username!.length < 3) {
+      return 'Username must be at least 3 characters long';
     }
     return null;
   }
 
   @computed
-  bool get isLoginValid {
-    return login != null && loginError == null;
+  bool get isUsernameValid {
+    return username != null && usernameError == null;
   }
 
   @computed
@@ -94,7 +94,7 @@ abstract class RegisterStoreBase with Store {
 
   @computed
   bool get isFormValid {
-    return isLoginValid && isPasswordValid && isPasswordConfirmationValid;
+    return isUsernameValid && isPasswordValid && isPasswordConfirmationValid;
   }
 
   @action
@@ -125,12 +125,12 @@ abstract class RegisterStoreBase with Store {
 
   Future<void> _saveCredentials(Digest digest, String salt) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey('username_$login')) {
+    if (prefs.containsKey('username_$username')) {
       throw ErrorDescription('User already exists');
     }
 
-    await prefs.setString('username_$login', login!);
-    await prefs.setString('password_$login', digest.toString());
-    await prefs.setString('salt_$login', salt);
+    await prefs.setString('username_$username', username!);
+    await prefs.setString('password_$username', digest.toString());
+    await prefs.setString('salt_$username', salt);
   }
 }
