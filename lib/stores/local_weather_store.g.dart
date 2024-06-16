@@ -175,6 +175,39 @@ mixin _$LocalWeatherStore on LocalWeatherStoreBase, Store {
     });
   }
 
+  late final _$isLoadingAtom =
+      Atom(name: 'LocalWeatherStoreBase.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
+  late final _$isWaitingForLocationAtom = Atom(
+      name: 'LocalWeatherStoreBase.isWaitingForLocation', context: context);
+
+  @override
+  bool get isWaitingForLocation {
+    _$isWaitingForLocationAtom.reportRead();
+    return super.isWaitingForLocation;
+  }
+
+  @override
+  set isWaitingForLocation(bool value) {
+    _$isWaitingForLocationAtom.reportWrite(value, super.isWaitingForLocation,
+        () {
+      super.isWaitingForLocation = value;
+    });
+  }
+
   late final _$fetchDataAsyncAction =
       AsyncAction('LocalWeatherStoreBase.fetchData', context: context);
 
@@ -207,6 +240,8 @@ longitude: ${longitude},
 weather: ${weather},
 errorMessage: ${errorMessage},
 weatherCode: ${weatherCode},
+isLoading: ${isLoading},
+isWaitingForLocation: ${isWaitingForLocation},
 formattedDate: ${formattedDate},
 temperature: ${temperature},
 weatherDescription: ${weatherDescription}

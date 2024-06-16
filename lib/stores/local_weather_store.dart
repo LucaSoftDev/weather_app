@@ -36,6 +36,12 @@ abstract class LocalWeatherStoreBase with Store {
   @observable
   String? weatherCode;
 
+  @observable
+  bool isLoading = false;
+
+  @observable
+  bool isWaitingForLocation = false;
+
   @computed
   String get formattedDate {
     if (_dateTime == null) {
@@ -68,17 +74,21 @@ abstract class LocalWeatherStoreBase with Store {
 
   @action
   Future<void> _fetchLocation() async {
+    isWaitingForLocation = true;
     try {
       var location = await Location.getUserLocation();
       latitude = location.latitude;
       longitude = location.longitude;
     } catch (e) {
       errorMessage = 'Failed to fetch location';
+    } finally {
+      isWaitingForLocation = false;
     }
   }
 
   @action
   Future<void> _fetchWeather() async {
+    isLoading = true;
     try {
       final response =
           await OpenWeatherApi.getWeatherByLocation(latitude!, longitude!);
@@ -90,6 +100,8 @@ abstract class LocalWeatherStoreBase with Store {
       weatherCode = response?.weather?.first.icon;
     } catch (e) {
       errorMessage = 'Failed to fetch weather';
+    } finally {
+      isLoading = false;
     }
   }
 }
