@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 import '../stores/login_store.dart';
 
@@ -13,6 +14,45 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final LoginStore _loginStore = LoginStore();
+
+  late final ReactionDisposer _successReactionDisposer;
+  late final ReactionDisposer _errorReactionDisposer;
+
+  @override
+  void initState() {
+    super.initState();
+    _successReactionDisposer = reaction(
+      (_) => _loginStore.success,
+      (success) {
+        if (success) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/local_weather_view', (route) => false);
+        }
+      },
+    );
+
+    _errorReactionDisposer = reaction(
+      (_) => _loginStore.errorMessage,
+      (errorMessage) {
+        if (errorMessage?.isNotEmpty ?? false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage!),
+              backgroundColor: Colors.red,
+            ),
+          );
+          _loginStore.errorMessage = null;
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _successReactionDisposer();
+    _errorReactionDisposer();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
