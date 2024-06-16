@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../consts/weather_units.dart';
+import '../models/weather_units.dart';
 import '../models/weather_response.dart';
 
 class OpenWeatherApi {

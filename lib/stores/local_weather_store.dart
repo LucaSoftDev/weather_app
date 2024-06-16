@@ -44,7 +44,7 @@ abstract class LocalWeatherStoreBase with Store {
   @computed
   String get temperature {
     if (_temperature == null) {
-      return 'No temperature data';
+      return '-- °C';
     }
     return '${_temperature!.round()}°C';
   }

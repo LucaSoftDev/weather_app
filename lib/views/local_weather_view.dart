@@ -24,45 +24,56 @@ class _LocalWeatherViewState extends State<LocalWeatherView> {
   Widget build(BuildContext context) {
     return Scaffold(body: Center(
       child: Observer(builder: (context) {
-        return Stack(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        return Container(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Stack(
               children: [
-                Text(_localWeatherStore.formattedDate,
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 32),
-                const Image(image: AssetImage('assets/images/cloud_sun.png')),
-                const SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      _localWeatherStore.temperature,
-                      style: const TextStyle(fontSize: 96),
+                    Text(_localWeatherStore.formattedDate,
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 32),
+                    const Image(
+                      image: AssetImage('assets/images/cloud_sun.png'),
+                      fit: BoxFit.cover,
+                      width: 250,
                     ),
-                    Column(
+                    const SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(_localWeatherStore.weather ?? 'No weather data',
-                            style: const TextStyle(fontSize: 24)),
-                        Text(_localWeatherStore.weatherDescription ??
-                            'No weather description data')
+                        Text(
+                          _localWeatherStore.temperature,
+                          style: const TextStyle(fontSize: 96),
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                                _localWeatherStore.weather ?? 'No weather data',
+                                style: const TextStyle(fontSize: 24)),
+                            Text(_localWeatherStore.weatherDescription ??
+                                'No weather description data')
+                          ],
+                        )
                       ],
-                    )
+                    ),
                   ],
                 ),
+                Positioned(
+                  right: 0,
+                  left: 0,
+                  bottom: 16,
+                  child: ElevatedButton(
+                      onPressed: _localWeatherStore.fetchData,
+                      child: const Text('Update')),
+                )
               ],
             ),
-            Positioned(
-              right: 0,
-              left: 0,
-              bottom: 16,
-              child: ElevatedButton(
-                  onPressed: _localWeatherStore.fetchData,
-                  child: const Text('Get Weather')),
-            )
-          ],
+          ),
         );
       }),
     ));
