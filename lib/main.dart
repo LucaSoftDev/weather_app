@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
             labelSmall: TextStyle(color: Colors.black87),
           ),
         ),
-        home: const LocalWeatherView(),
+        home: const HomeView(),
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.dark,
         routes: {

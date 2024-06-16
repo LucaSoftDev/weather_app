@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:mobx/mobx.dart';
 
-
 part 'login_store.g.dart';
 
 class LoginStore = LoginStoreBase with _$LoginStore;
@@ -65,7 +64,6 @@ abstract class LoginStoreBase with Store {
 
   @computed
   bool get isFormValid {
-    print(isUsernameValid);
     return isUsernameValid && isPasswordValid;
   }
 

@@ -17,8 +17,6 @@ class _RegisterViewState extends State<RegisterView> {
   late final ReactionDisposer _successReactionDisposer;
   late final ReactionDisposer _errorReactionDisposer;
 
-  final greeting = Observable('Hello World');
-
   @override
   void initState() {
     super.initState();
@@ -27,7 +25,7 @@ class _RegisterViewState extends State<RegisterView> {
       (success) {
         if (success) {
           Navigator.pushNamedAndRemoveUntil(
-              context, '/home_view', (route) => false);
+              context, '/local_weather_view', (route) => false);
         }
       },
     );
@@ -67,111 +65,114 @@ class _RegisterViewState extends State<RegisterView> {
           icon: const Icon(Icons.chevron_left),
         ),
       ),
-      body: Stack(
-        children: [
-          const Positioned(
-              left: 0,
-              right: 0,
-              top: 32,
-              child: Center(
-                  child: Text('Create an Account',
-                      style: TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold)))),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Observer(builder: (context) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextField(
-                      onChanged: (value) => _registerStore.username = value,
-                      decoration: InputDecoration(
-                          hintText: 'User Name',
-                          errorText: _registerStore.usernameError),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      obscureText: _registerStore.obscurePassword,
-                      onChanged: (value) => _registerStore.password = value,
-                      decoration: InputDecoration(
-                          hintText: 'Password',
-                          errorText: _registerStore.passwordError,
+      body: Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: Stack(
+            children: [
+              const Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 32,
+                  child: Center(
+                      child: Text('Create an Account',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)))),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Observer(builder: (context) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextField(
+                        onChanged: (value) => _registerStore.username = value,
+                        decoration: InputDecoration(
+                            hintText: 'User Name',
+                            errorText: _registerStore.usernameError),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        obscureText: _registerStore.obscurePassword,
+                        onChanged: (value) => _registerStore.password = value,
+                        decoration: InputDecoration(
+                            hintText: 'Password',
+                            errorText: _registerStore.passwordError,
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: IconButton(
+                                  icon: Icon(_registerStore.obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  onPressed:
+                                      _registerStore.toggleObscurePassword),
+                            )),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        obscureText: _registerStore.obscurePasswordConfirmation,
+                        onChanged: (value) =>
+                            _registerStore.passwordConfirmation = value,
+                        decoration: InputDecoration(
+                          hintText: 'Password Confirmation',
+                          errorText: _registerStore.passwordConfirmationError,
                           suffixIcon: Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: IconButton(
-                                icon: Icon(_registerStore.obscurePassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed:
-                                    _registerStore.toggleObscurePassword),
-                          )),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      obscureText: _registerStore.obscurePasswordConfirmation,
-                      onChanged: (value) =>
-                          _registerStore.passwordConfirmation = value,
-                      decoration: InputDecoration(
-                        hintText: 'Password Confirmation',
-                        errorText: _registerStore.passwordConfirmationError,
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: IconButton(
-                              icon: Icon(
-                                  _registerStore.obscurePasswordConfirmation
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                              onPressed: _registerStore
-                                  .toggleObscurePasswordConfirmation),
+                                icon: Icon(
+                                    _registerStore.obscurePasswordConfirmation
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                onPressed: _registerStore
+                                    .toggleObscurePasswordConfirmation),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 48),
-                    Row(
+                      const SizedBox(height: 48),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Observer(builder: (context) {
+                              return ElevatedButton(
+                                onPressed: _registerStore.isFormValid
+                                    ? _registerStore.register
+                                    : null,
+                                child: const Text('Sign Up'),
+                              );
+                            }),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                }),
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 16,
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Already have an account? ',
+                      // get style from theme
+                      style: Theme.of(context).textTheme.bodyMedium,
                       children: [
-                        Expanded(
-                          child: Observer(builder: (context) {
-                            return ElevatedButton(
-                              onPressed: _registerStore.isFormValid
-                                  ? _registerStore.register
-                                  : null,
-                              child: const Text('Sign Up'),
-                            );
-                          }),
+                        TextSpan(
+                          text: 'Sign in Now',
+                          style: const TextStyle(color: Colors.blue),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(context, '/login_view');
+                            },
                         ),
                       ],
                     ),
-                  ],
-                );
-              }),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 16,
-            child: Center(
-              child: RichText(
-                text: TextSpan(
-                  text: 'Already have an account? ',
-                  // get style from theme
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  children: [
-                    TextSpan(
-                      text: 'Sign in Now',
-                      style: const TextStyle(color: Colors.blue),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.pushNamed(context, '/login_view');
-                        },
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          )
-        ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

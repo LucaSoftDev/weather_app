@@ -117,7 +117,6 @@ abstract class RegisterStoreBase with Store {
     try {
       await _saveCredentials(digest, salt);
       success = true;
-      print('Registration successful');
     } catch (e) {
       errorMessage = e.toString();
     }
